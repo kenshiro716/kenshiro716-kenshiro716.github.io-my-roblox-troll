@@ -1,235 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ROBLOX System Override: LOL</title>
-    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
-    <style>
-        body {
-            background-color: #191924; /* Dark blue-grey, similar to Roblox dark mode */
-            color: #00EE00; /* Vibrant green for text, still hacker-ish */
-            font-family: 'VT323', monospace; /* Classic hacker terminal font */
-            font-size: 1.2em;
-            margin: 0;
-            overflow: hidden; /* Hide scrollbars */
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: flex-start;
-            width: 100vw;
-            height: 100vh;
-            padding: 20px;
-            box-sizing: border-box;
-            animation: none; /* Initial state, no shake */
-        }
-
-        /* Screen Shake Effect */
-        .shake-active {
-            animation: screenShake 0.1s infinite alternate; /* Fast, alternating shake */
-        }
-
-        @keyframes screenShake {
-            0% { transform: translate(1px, 1px) rotate(0deg); }
-            25% { transform: translate(-1px, -2px) rotate(-0.5deg); }
-            50% { transform: translate(-3px, 0px) rotate(0.5deg); }
-            75% { transform: translate(2px, -1px) rotate(-0.2deg); }
-            100% { transform: translate(1px, 2px) rotate(0.5deg); }
-        }
-
-        .line {
-            white-space: pre-wrap; /* Preserve whitespace and wrap */
-            word-break: break-all; /* Break long words */
-            margin-bottom: 5px;
-            opacity: 0.8;
-        }
-
-        .prompt {
-            color: #00A2FF; /* Roblox blue for the prompt */
-            font-weight: bold;
-        }
-
-        .cursor {
-            animation: blink 1s step-end infinite;
-        }
-
-        @keyframes blink {
-            from, to { visibility: hidden; }
-            50% { visibility: visible; }
-        }
-
-        .glitch-text {
-            animation: glitchEffect 0.5s infinite alternate;
-        }
-
-        @keyframes glitchEffect {
-            0% {
-                transform: translateX(0);
-                text-shadow: 0.05em 0 0 rgba(0, 255, 0, 0.75), -0.05em 0 0 rgba(255, 0, 0, 0.75);
-            }
-            20% {
-                transform: translateX(-2px);
-                text-shadow: -0.05em 0 0 rgba(0, 255, 0, 0.75), 0.05em 0 0 rgba(255, 0, 0, 0.75);
-            }
-            40% {
-                transform: translateX(2px);
-                text-shadow: 0.05em 0 0 rgba(0, 255, 0, 0.75), -0.05em 0 0 rgba(255, 0, 0, 0.75);
-            }
-            60% {
-                transform: translateX(-1px);
-                text-shadow: -0.05em 0 0 rgba(0, 255, 0, 0.75), 0.05em 0 0 rgba(255, 0, 0, 0.75);
-            }
-            80% {
-                transform: translateX(1px);
-                text-shadow: 0.05em 0 0 rgba(0, 255, 0, 0.75), -0.05em 0 0 rgba(255, 0, 0, 0.75);
-            }
-            100% {
-                transform: translateX(0);
-                text-shadow: 0.05em 0 0 rgba(0, 255, 0, 0.75), -0.05em 0 0 rgba(255, 0, 0, 0.75);
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Roblox Account Hack Simulator</title>
+  <style>
+    body {
+      background-color: black;
+      color: #00ff00;
+      font-family: monospace;
+      padding: 20px;
+      text-align: center;
+    }
+    .console {
+      white-space: pre-wrap;
+      font-size: 16px;
+      text-align: left;
+      margin-top: 20px;
+    }
+    #reveal {
+      display: none;
+      color: red;
+      font-weight: bold;
+      font-size: 20px;
+      margin-top: 20px;
+    }
+    #startBtn {
+      background-color: #00ff00;
+      color: black;
+      font-size: 20px;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-family: monospace;
+    }
+  </style>
 </head>
 <body>
-    <div id="console-output">
-        <div class="line prompt">ROBLOX_CLIENT_OS:> <span id="current-command">Initiating ROBLOX integrity check...</span><span class="cursor">_</span></div>
-    </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
-    <script>
-        const consoleOutput = document.getElementById('console-output');
-        const currentCommandSpan = document.getElementById('current-command');
-        const body = document.body;
+  <button id="startBtn">Click</button>
+  <div class="console" id="console" style="display: none;">
+    Initializing hack tool...
+  </div>
+  <div id="reveal">Sending data to webhook...</div>
 
-        const hackingMessages = [
-            "Connecting to BlockyNet server 2b2t-obby...",
-            "Analyzing Robux transaction history (don't worry, it's just a joke!)...",
-            "Bypassing anti-exploit 3000 with a simple `print('hello world')`...",
-            "Injecting admin command: `:fly me to the moon`...",
-            "Downloading latest 'oof' sound effect version 2.7.3...",
-            "Searching for elusive headless horseman package in hidden folders...",
-            "Detecting suspicious T-posing activity near the spawn point...",
-            "Optimizing avatar physics for maximum ragdoll potential...",
-            "Generating a new Noob skin for enhanced trolling capabilities...",
-            "Applying 0-ping patch (results may vary, mostly 'not at all')...",
-            "Connecting to experience instance: Builderman's Secret Hideout #404...",
-            "Warning: Server shutdown in 5 seconds (this is just for dramatic effect)...",
-            "Calculating optimal jump power for impossible obbies...",
-            "Verifying account security: 2-step noobification protocol active.",
-            "Accessing DevForum discussions about lag spikes and broken updates...",
-            "Compiling advanced Lua scripts for a 'working' sword fight game...",
-            "Scanning for exploiter presence (found: your little brother playing on guest account)...",
-            "Injecting free Robux (error 403: permission denied by reality)...",
-            "Hacking complete. Your avatar is now 100% meme-certified. Enjoy!"
-        ];
+  <script>
+    const lines = [
+      "Connecting to Roblox servers...",
+      "Bypassing 2FA...",
+      "Decrypting password hash...",
+      "Injecting backdoor into avatar...",
+      "Locating Robux wallet...",
+      "Transferring Robux...",
+      "Stealing limiteds...",
+      "Accessing admin panel...",
+      "Downloading account data...",
+      "Sending account to webhook and changing password..."
+    ];
 
-        let messageIndex = 0;
-        let charIndex = 0;
-        let typingInterval;
-        let glitchInterval;
-        let shakeInterval;
+    let i = 0;
+    const consoleEl = document.getElementById("console");
+    const revealEl = document.getElementById("reveal");
+    const startBtn = document.getElementById("startBtn");
 
-        // Tone.js setup for sound effects
-        let typingSynth;
-        let glitchSynth;
+    startBtn.onclick = () => {
+      startBtn.style.display = "none";
+      consoleEl.style.display = "block";
+      setTimeout(nextLine, 1000);
+    };
 
-        function setupAudio() {
-            try {
-                // Typing sound: short, high-frequency click, like a UI sound
-                typingSynth = new Tone.Synth({
-                    oscillator: { type: "square" },
-                    envelope: {
-                        attack: 0.001,
-                        decay: 0.02,
-                        sustain: 0.01,
-                        release: 0.05
-                    }
-                }).toDestination();
-
-                // Glitch sound: noisy, short burst
-                glitchSynth = new Tone.NoiseSynth({
-                    noise: { type: "white" },
-                    envelope: {
-                        attack: 0.001,
-                        decay: 0.05,
-                        sustain: 0.01,
-                        release: 0.1
-                    }
-                }).toDestination();
-
-                // Start Tone.js context if not already started (for some browsers)
-                Tone.start();
-            } catch (error) {
-                console.error("Audio context could not be started:", error);
-                // Fallback: disable sound if Tone.js fails
-                typingSynth = null;
-                glitchSynth = null;
-            }
-        }
-
-        function typeMessage() {
-            if (!gameRunning) return; // Stop if game not running
-
-            const fullMessage = hackingMessages[messageIndex];
-            currentCommandSpan.textContent = fullMessage.substring(0, charIndex);
-            charIndex++;
-
-            if (charIndex <= fullMessage.length) {
-                if (typingSynth) {
-                    typingSynth.triggerAttackRelease(Math.random() * 200 + 800, "16n"); // Random high pitch
-                }
-            } else {
-                clearInterval(typingInterval);
-                setTimeout(nextLine, 1000 + Math.random() * 1000); // Wait a bit then go to next line
-            }
-        }
-
-        function nextLine() {
-            if (!gameRunning) return; // Stop if game not running
-
-            const newLine = document.createElement('div');
-            newLine.className = 'line';
-            newLine.textContent = currentCommandSpan.textContent;
-            consoleOutput.appendChild(newLine);
-            consoleOutput.scrollTop = consoleOutput.scrollHeight; // Scroll to bottom
-
-            messageIndex = (messageIndex + 1) % hackingMessages.length;
-            charIndex = 0;
-            currentCommandSpan.textContent = ''; // Clear for new typing
-            typingInterval = setInterval(typeMessage, 50 + Math.random() * 100); // Vary typing speed
-        }
-
-        function toggleScreenShake() {
-            if (!gameRunning) return; // Stop if game not running
-
-            if (Math.random() < 0.3) { // 30% chance to trigger a glitch effect
-                body.classList.add('glitch-text');
-                if (glitchSynth) {
-                    glitchSynth.triggerAttackRelease("8n");
-                }
-                setTimeout(() => {
-                    body.classList.remove('glitch-text');
-                }, 100 + Math.random() * 200); // Glitch for a short random duration
-            }
-
-            if (!body.classList.contains('shake-active')) {
-                body.classList.add('shake-active');
-            }
-        }
-
-        let gameRunning = false; // Control state
-
-        // Start the "hacking" sequence
-        function startHacking() {
-            if (gameRunning) return; // Already running
-            gameRunning = true;
-            setupAudio(); // Initialize audio
-            nextLine(); // Start typing the first message
-            shakeInterval = setInterval(toggleScreenShake, 500 + Math.random() * 500); // Random shake interval
-        }
-
-        // Automatically start the hacking screen on load
-        window.onload = startHacking;
-    </script>
+    function nextLine() {
+      if (i < lines.length) {
+        consoleEl.innerHTML += "\n" + lines[i];
+        i++;
+        setTimeout(nextLine, 1000);
+      } else {
+        consoleEl.innerHTML += "\n\n[ERROR] Connection Terminated.";
+        setTimeout(() => {
+          revealEl.style.display = "block";
+        }, 2000);
+      }
+    }
+  </script>
 </body>
 </html>
