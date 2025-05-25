@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Roblox Account Hack Simulator</title>
+  <style>
+    body {
+      background-color: black;
+      color: #00ff00;
+      font-family: monospace;
+      padding: 20px;
+      text-align: center;
+    }
+    .console {
+      white-space: pre-wrap;
+      font-size: 16px;
+      text-align: left;
+      margin-top: 20px;
+    }
+    #reveal {
+      display: none;
+      color: red;
+      font-weight: bold;
+      font-size: 20px;
+      margin-top: 20px;
+    }
+    #startBtn {
+      background-color: #00ff00;
+      color: black;
+      font-size: 20px;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-family: monospace;
+    }
+  </style>
+</head>
+<body>
+
+  <button id="startBtn">Click</button>
+  <div class="console" id="console" style="display: none;">
+    Initializing hack tool...
+  </div>
+  <div id="reveal">Sending data to webhook...</div>
+
+  <script>
+    const lines = [
+      "Connecting to Roblox servers...",
+      "Bypassing 2FA...",
+      "Decrypting password hash...",
+      "Injecting backdoor into avatar...",
+      "Locating Robux wallet...",
+      "Transferring Robux...",
+      "Stealing limiteds...",
+      "Accessing admin panel...",
+      "Downloading account data...",
+      "Sending account to webhook and changing password..."
+    ];
+
+    let i = 0;
+    const consoleEl = document.getElementById("console");
+    const revealEl = document.getElementById("reveal");
+    const startBtn = document.getElementById("startBtn");
+
+    startBtn.onclick = () => {
+      startBtn.style.display = "none";
+      consoleEl.style.display = "block";
+      setTimeout(nextLine, 1000);
+    };
+
+    function nextLine() {
+      if (i < lines.length) {
+        consoleEl.innerHTML += "\n" + lines[i];
+        i++;
+        setTimeout(nextLine, 1000);
+      } else {
+        consoleEl.innerHTML += "\n\n[ERROR] Connection Terminated.";
+        setTimeout(() => {
+          revealEl.style.display = "block";
+        }, 2000);
+      }
+    }
+  </script>
+</body>
+</html>
